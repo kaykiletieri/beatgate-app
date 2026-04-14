@@ -1,0 +1,21 @@
+<div class="track-card" [class.track-card--selected]="selected" (click)="select.emit()">
+    <div class="track-card__art">
+        @if (track.albumImageUrl) {
+        <img [src]="track.albumImageUrl" [alt]="track.album" />
+        } @else {
+        <span class="material-symbols-outlined track-card__art-placeholder">music_note</span>
+        }
+        @if (selected) {
+        <div class="track-card__art-overlay">
+            <span class="material-symbols-outlined">equalizer</span>
+        </div>
+        }
+    </div>
+
+    <div class="track-card__info">
+        <h3 class="track-card__name">{{ track.name }}</h3>
+        <p class="track-card__artist">{{ track.artist }}</p>
+    </div>
+
+    <span class="track-card__duration">{{ duration }}</span>
+</div>

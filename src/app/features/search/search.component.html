@@ -1,0 +1,109 @@
+<div class="search" [class.search--sheet-open]="selectedTrack">
+
+    <!-- Top Bar -->
+    <header class="search__topbar">
+        <button class="search__back btn-press" (click)="goBack()">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <span class="search__topbar-title">Buscar música</span>
+        @if (venueSvc.venue()?.logoUrl) {
+        <img class="search__topbar-logo" [src]="venueSvc.venue()!.logoUrl!" [alt]="venueSvc.venue()!.name" />
+        }
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search__bar-wrap">
+        <div class="search__bar">
+            <span class="material-symbols-outlined search__bar-icon">search</span>
+            <input class="search__bar-input" type="search" placeholder="Artista, música ou álbum..." autocomplete="off"
+                [ngModel]="query" (ngModelChange)="onQueryChange($event)" />
+            @if (state === 'loading') {
+            <span class="search__bar-spinner"></span>
+            }
+        </div>
+    </div>
+
+    <!-- Main -->
+    <main class="search__main">
+
+        @if (state === 'idle') {
+        <div class="search__empty animate-fade-slide-up">
+            <div class="search__empty-icon">
+                <span class="material-symbols-outlined">library_music</span>
+            </div>
+            <h2 class="search__empty-title">Encontre sua música</h2>
+            <p class="search__empty-text">Pesquise por artistas ou títulos para sugerir na próxima sessão ao vivo.</p>
+        </div>
+        }
+
+        @if (state === 'empty') {
+        <div class="search__empty animate-fade-slide-up">
+            <div class="search__empty-icon">
+                <span class="material-symbols-outlined">search_off</span>
+            </div>
+            <h2 class="search__empty-title">Nenhum resultado</h2>
+            <p class="search__empty-text">Tente outro termo ou verifique a grafia.</p>
+        </div>
+        }
+
+        @if (state === 'error') {
+        <div class="search__empty animate-fade-slide-up">
+            <div class="search__empty-icon">
+                <span class="material-symbols-outlined">wifi_off</span>
+            </div>
+            <h2 class="search__empty-title">Erro na busca</h2>
+            <p class="search__empty-text">Verifique sua conexão e tente novamente.</p>
+        </div>
+        }
+
+        @if (state === 'results') {
+        <section class="search__results">
+            @for (track of tracks; track track.id) {
+            <bg-track-card [track]="track" [selected]="selectedTrack?.id === track.id"
+                [duration]="formatDuration(track.durationMs)" (select)="selectTrack(track)" />
+            }
+        </section>
+        }
+
+    </main>
+
+    <!-- Bottom Sheet -->
+    @if (selectedTrack) {
+    <div class="search__sheet glass-panel animate-fade-slide-up">
+        <div class="search__sheet-handle"></div>
+
+        <div class="search__sheet-track">
+            <div class="search__sheet-art">
+                @if (selectedTrack.albumImageUrl) {
+                <img [src]="selectedTrack.albumImageUrl" [alt]="selectedTrack.album" />
+                }
+            </div>
+            <div class="search__sheet-info">
+                <span class="search__sheet-tag">Selecionada</span>
+                <h4 class="search__sheet-name">{{ selectedTrack.name }}</h4>
+                <p class="search__sheet-artist">{{ selectedTrack.artist }} · {{ selectedTrack.album }}</p>
+                <p class="search__sheet-duration">{{ formatDuration(selectedTrack.durationMs) }}</p>
+            </div>
+        </div>
+
+        <button class="search__sheet-btn primary-gradient ambient-glow btn-press" [disabled]="isSubmitting"
+            (click)="suggest()">
+            <span class="material-symbols-outlined">add_circle</span>
+            {{ isSubmitting ? 'Enviando...' : 'Sugerir esta música' }}
+        </button>
+    </div>
+    }
+
+    <!-- Bottom Nav -->
+    <nav class="search__nav glass-panel">
+        <button class="search__nav-item search__nav-item--active">
+            <span class="material-symbols-outlined">add_circle</span>
+            <span>Sugerir</span>
+        </button>
+        <button class="search__nav-item" (click)="goToQueue()">
+            <span class="material-symbols-outlined">queue_music</span>
+            <span>Fila</span>
+        </button>
+    </nav>
+
+</div>

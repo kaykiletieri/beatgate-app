@@ -10,12 +10,12 @@ export const routes: Routes = [
                 path: '',
                 loadComponent: () =>
                     import('./features/landing/landing.component').then(m => m.LandingComponent),
-            },/*
+            },
             {
                 path: 'search',
                 loadComponent: () =>
                     import('./features/search/search.component').then(m => m.SearchComponent),
-            },
+            },/*
             {
                 path: 'confirmation',
                 loadComponent: () =>
