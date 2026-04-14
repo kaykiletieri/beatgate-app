@@ -1,0 +1,61 @@
+:root {
+    // Accent — sobrescrito dinamicamente pelo venue
+    --color-primary: #b6a0ff;
+    --color-primary-container: #a98fff;
+    --color-on-primary: #340090;
+    --color-on-primary-fixed: #000000;
+
+    // Surfaces
+    --surface: #0e0e0e;
+    --surface-container-low: #131313;
+    --surface-container: #1a1a1a;
+    --surface-container-high: #20201f;
+    --surface-container-highest: #262626;
+    --surface-variant: #262626;
+
+    // Semantic
+    --secondary: #00e3fd;
+    --error: #ff6e84;
+
+    // Text
+    --on-surface: #ffffff;
+    --on-surface-variant: #adaaaa;
+
+    // Borders
+    --outline-variant: #484847;
+
+    // Typography
+    --font-display: 'Epilogue', sans-serif;
+    --font-body: 'Manrope', sans-serif;
+
+    // Radii
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1.25rem;
+    --radius-2xl: 1.5rem;
+    --radius-full: 9999px;
+
+    // Spacing
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+
+    // Elevation
+    --shadow-ambient: 0 20px 40px rgba(0, 0, 0, 0.4);
+    --shadow-float: 0 -20px 40px rgba(0, 0, 0, 0.4);
+    --glow-primary: 0 0 20px rgba(182, 160, 255, 0.3);
+
+    // Animation
+    --duration-fast: 150ms;
+    --duration-normal: 250ms;
+    --duration-slow: 500ms;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}

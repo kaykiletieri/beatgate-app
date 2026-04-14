@@ -1,0 +1,48 @@
+<div class="landing">
+
+    <div class="landing__bg-glow" aria-hidden="true"></div>
+
+    <main class="landing__content">
+
+        <header class="landing__header animate-fade-slide-up stagger-1">
+            <div class="landing__logo-wrap">
+                @if (venue?.logoUrl) {
+                <img class="landing__logo-img" [src]="venue!.logoUrl" [alt]="venue!.name" />
+                } @else {
+                <span class="material-symbols-outlined landing__logo-placeholder">graphic_eq</span>
+                }
+            </div>
+            <h1 class="landing__venue-name">{{ venue?.name ?? '...' }}</h1>
+            <p class="landing__subtitle">Sugira a próxima música</p>
+        </header>
+
+        <section class="landing__actions animate-fade-slide-up stagger-3">
+
+            <button class="landing__btn-primary btn-press primary-gradient ambient-glow" (click)="goToSearch()">
+                <span class="material-symbols-outlined">music_note</span>
+                Entrar na fila
+            </button>
+
+            <div class="landing__divider" aria-hidden="true">
+                <span class="landing__divider-line"></span>
+                <span class="landing__divider-label">Curadoria BeatGate</span>
+                <span class="landing__divider-line"></span>
+            </div>
+
+            <button class="landing__btn-secondary btn-press" (click)="goToQueue()">
+                <span class="material-symbols-outlined">queue_music</span>
+                Ver fila ao vivo
+            </button>
+
+        </section>
+
+    </main>
+
+    <footer class="landing__footer animate-fade-in stagger-5">
+        <div class="landing__live-badge glass-panel">
+            <span class="material-symbols-outlined landing__live-icon">graphic_eq</span>
+            <span class="landing__live-label">Sessão ao vivo ativa</span>
+        </div>
+    </footer>
+
+</div>

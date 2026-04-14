@@ -1,1 +1,122 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'styles/tokens';
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--surface);
+    color: var(--on-surface);
+    min-height: 100dvh;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--outline-variant);
+    border-radius: var(--radius-full);
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    user-select: none;
+}
+
+// Utilitários globais
+.glass-panel {
+    background: rgba(38, 38, 38, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+}
+
+.primary-gradient {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-container) 100%);
+}
+
+.ambient-glow {
+    box-shadow: var(--glow-primary);
+}
+
+.btn-press {
+    transition: transform var(--duration-fast) var(--ease-out);
+
+    &:active {
+        transform: scale(0.96);
+    }
+}
+
+// Animações
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.animate-fade-slide-up {
+    animation: fadeSlideUp var(--duration-slow) var(--ease-out) both;
+}
+
+.animate-fade-in {
+    animation: fadeIn var(--duration-slow) ease both;
+}
+
+@for $i from 1 through 6 {
+    .stagger-#{$i} {
+        animation-delay: #{$i * 80}ms;
+    }
+}
