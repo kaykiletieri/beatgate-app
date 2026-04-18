@@ -15,7 +15,7 @@ export const routes: Routes = [
                 path: 'search',
                 loadComponent: () =>
                     import('./features/search/search.component').then(m => m.SearchComponent),
-            },/*
+            },
             {
                 path: 'confirmation',
                 loadComponent: () =>
@@ -25,7 +25,7 @@ export const routes: Routes = [
                 path: 'queue',
                 loadComponent: () =>
                     import('./features/queue/queue.component').then(m => m.QueueComponent),
-            },*/
+            },
         ],
     },
     { path: '**', redirectTo: '' },

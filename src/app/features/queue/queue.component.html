@@ -1,0 +1,114 @@
+<div class="queue">
+
+    <div class="queue__bg-glow" aria-hidden="true"></div>
+
+    <!-- Top Bar -->
+    <header class="queue__topbar">
+        <button class="queue__back btn-press" (click)="goBack()">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <span class="queue__topbar-title">Fila ao vivo</span>
+        @if (venueSvc.venue()?.logoUrl) {
+        <img class="queue__topbar-logo" [src]="venueSvc.venue()!.logoUrl!" [alt]="venueSvc.venue()!.name" />
+        }
+    </header>
+
+    <main class="queue__main">
+
+        <!-- Loading -->
+        @if (loading) {
+        <div class="queue__loading">
+            <div class="queue__spinner"></div>
+        </div>
+        }
+
+        <!-- Vazia -->
+        @if (!loading && items.length === 0) {
+        <div class="queue__empty animate-fade-slide-up">
+            <div class="queue__empty-icon">
+                <span class="material-symbols-outlined">queue_music</span>
+            </div>
+            <h2 class="queue__empty-title">Fila vazia</h2>
+            <p class="queue__empty-text">Nenhuma música aprovada ainda. Seja o primeiro a sugerir!</p>
+            <button class="queue__empty-btn primary-gradient ambient-glow btn-press" (click)="goToSearch()">
+                <span class="material-symbols-outlined">add</span>
+                Sugerir música
+            </button>
+        </div>
+        }
+
+        <!-- Lista -->
+        @if (!loading && items.length > 0) {
+        <section class="queue__list animate-fade-slide-up">
+
+            <!-- Now Playing -->
+            @for (item of items; track item.id) {
+            @if (item.isPlaying) {
+            <div class="queue__now-playing">
+                <div class="queue__now-playing-label">
+                    <span class="queue__eq-bars">
+                        <span></span><span></span><span></span>
+                    </span>
+                    Tocando agora
+                </div>
+                <div class="queue__item queue__item--playing">
+                    <div class="queue__item-art">
+                        @if (item.albumImageUrl) {
+                        <img [src]="item.albumImageUrl" [alt]="item.albumName" />
+                        }
+                        <div class="queue__item-art-overlay">
+                            <span class="material-symbols-outlined">graphic_eq</span>
+                        </div>
+                    </div>
+                    <div class="queue__item-info">
+                        <span class="queue__item-name">{{ item.trackName }}</span>
+                        <span class="queue__item-artist">{{ item.artistName }}</span>
+                    </div>
+                    <span class="queue__item-duration">{{ formatDuration(item.durationMs) }}</span>
+                </div>
+            </div>
+            }
+            }
+
+            <!-- Próximas -->
+            @if (items.length > 1 || (items.length === 1 && !items[0].isPlaying)) {
+            <div class="queue__upcoming">
+                <span class="queue__upcoming-label">A seguir</span>
+                @for (item of items; track item.id) {
+                @if (!item.isPlaying) {
+                <div class="queue__item">
+                    <span class="queue__item-position">{{ item.position }}</span>
+                    <div class="queue__item-art">
+                        @if (item.albumImageUrl) {
+                        <img [src]="item.albumImageUrl" [alt]="item.albumName" />
+                        }
+                    </div>
+                    <div class="queue__item-info">
+                        <span class="queue__item-name">{{ item.trackName }}</span>
+                        <span class="queue__item-artist">{{ item.artistName }}</span>
+                    </div>
+                    <span class="queue__item-duration">{{ formatDuration(item.durationMs) }}</span>
+                </div>
+                }
+                }
+            </div>
+            }
+
+        </section>
+        }
+
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav class="queue__nav glass-panel">
+        <button class="queue__nav-item" (click)="goToSearch()">
+            <span class="material-symbols-outlined">add_circle</span>
+            <span>Sugerir</span>
+        </button>
+        <button class="queue__nav-item queue__nav-item--active">
+            <span class="material-symbols-outlined">queue_music</span>
+            <span>Fila</span>
+        </button>
+    </nav>
+
+</div>
