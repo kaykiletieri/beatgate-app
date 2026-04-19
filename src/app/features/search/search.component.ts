@@ -45,10 +45,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.slug = this.route.snapshot.paramMap.get('slug') ?? '';
 
     this.search$.pipe(
-      debounceTime(350),
+      debounceTime(600),
       distinctUntilChanged(),
       switchMap(q => {
-        if (!q.trim()) {
+        if (!q.trim() || q.trim().length < 3) {
           this.state = 'idle';
           this.tracks = [];
           return of([]);
