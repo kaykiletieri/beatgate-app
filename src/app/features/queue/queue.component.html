@@ -42,8 +42,7 @@
         <section class="queue__list animate-fade-slide-up">
 
             <!-- Now Playing -->
-            @for (item of items; track item.id) {
-            @if (item.isPlaying) {
+            @if (nowPlaying) {
             <div class="queue__now-playing">
                 <div class="queue__now-playing-label">
                     <span class="queue__eq-bars">
@@ -53,29 +52,27 @@
                 </div>
                 <div class="queue__item queue__item--playing">
                     <div class="queue__item-art">
-                        @if (item.albumImageUrl) {
-                        <img [src]="item.albumImageUrl" [alt]="item.albumName" />
+                        @if (nowPlaying.albumImageUrl) {
+                        <img [src]="nowPlaying.albumImageUrl" [alt]="nowPlaying.albumName" />
                         }
                         <div class="queue__item-art-overlay">
                             <span class="material-symbols-outlined">graphic_eq</span>
                         </div>
                     </div>
                     <div class="queue__item-info">
-                        <span class="queue__item-name">{{ item.trackName }}</span>
-                        <span class="queue__item-artist">{{ item.artistName }}</span>
+                        <span class="queue__item-name">{{ nowPlaying.trackName }}</span>
+                        <span class="queue__item-artist">{{ nowPlaying.artistName }}</span>
                     </div>
-                    <span class="queue__item-duration">{{ formatDuration(item.durationMs) }}</span>
+                    <span class="queue__item-duration">{{ formatDuration(nowPlaying.durationMs) }}</span>
                 </div>
             </div>
             }
-            }
 
             <!-- Próximas -->
-            @if (items.length > 1 || (items.length === 1 && !items[0].isPlaying)) {
+            @if (upcoming.length > 0) {
             <div class="queue__upcoming">
                 <span class="queue__upcoming-label">A seguir</span>
-                @for (item of items; track item.id) {
-                @if (!item.isPlaying) {
+                @for (item of upcoming; track item.id) {
                 <div class="queue__item">
                     <span class="queue__item-position">{{ item.position }}</span>
                     <div class="queue__item-art">
@@ -89,7 +86,6 @@
                     </div>
                     <span class="queue__item-duration">{{ formatDuration(item.durationMs) }}</span>
                 </div>
-                }
                 }
             </div>
             }

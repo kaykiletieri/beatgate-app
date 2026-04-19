@@ -1,135 +1,184 @@
 <div class="confirmation">
 
-  <!-- Gradientes decorativos de fundo -->
-  <div class="confirmation__bg-top" aria-hidden="true"></div>
-  <div class="confirmation__bg-bottom" aria-hidden="true"></div>
+    <div class="confirmation__bg-top" aria-hidden="true"></div>
+    <div class="confirmation__bg-bottom" aria-hidden="true"></div>
 
-  <!-- Top Bar -->
-  <header class="confirmation__topbar">
-    <span class="confirmation__topbar-title">BeatGate</span>
-    @if (venueSvc.venue()?.logoUrl) {
-      <img class="confirmation__topbar-logo" [src]="venueSvc.venue()!.logoUrl!" [alt]="venueSvc.venue()!.name" />
-    }
-  </header>
+    <header class="confirmation__topbar">
+        <span class="confirmation__topbar-title">BeatGate</span>
+        @if (venueSvc.venue()?.logoUrl) {
+        <img class="confirmation__topbar-logo" [src]="venueSvc.venue()!.logoUrl!" [alt]="venueSvc.venue()!.name" />
+        }
+    </header>
 
-  <main class="confirmation__main">
+    <main class="confirmation__main">
 
-    <!-- Estado: Pendente -->
-    @if (isPending) {
-      <section class="confirmation__state animate-fade-slide-up">
+        <!-- Estado: Pendente -->
+        @if (isPending) {
+        <section class="confirmation__state animate-fade-slide-up">
 
-        <div class="confirmation__icon-wrap">
-          <div class="confirmation__icon-glow"></div>
-          <div class="confirmation__icon-circle">
-            <span class="material-symbols-outlined">check_circle</span>
-          </div>
-        </div>
-
-        <h2 class="confirmation__title">Sua sugestão foi enviada!</h2>
-        <p class="confirmation__subtitle">Estamos analisando seu som. Fique de olho no status abaixo.</p>
-
-        <!-- Track card -->
-        @if (track) {
-          <div class="confirmation__track">
-            @if (track.albumImageUrl) {
-              <img class="confirmation__track-art" [src]="track.albumImageUrl" [alt]="track.album" />
-            }
-            <div class="confirmation__track-info">
-              <span class="confirmation__track-name">{{ track.name }}</span>
-              <span class="confirmation__track-artist">{{ track.artist }}</span>
+            <div class="confirmation__icon-wrap">
+                <div class="confirmation__icon-glow"></div>
+                <div class="confirmation__icon-circle">
+                    <span class="material-symbols-outlined">check_circle</span>
+                </div>
             </div>
-          </div>
+
+            <h2 class="confirmation__title">Sua sugestão foi enviada!</h2>
+            <p class="confirmation__subtitle">Estamos analisando seu som. Fique de olho no status abaixo.</p>
+
+            @if (track) {
+            <div class="confirmation__track">
+                @if (track.albumImageUrl) {
+                <img class="confirmation__track-art" [src]="track.albumImageUrl" [alt]="track.album" />
+                }
+                <div class="confirmation__track-info">
+                    <span class="confirmation__track-name">{{ track.name }}</span>
+                    <span class="confirmation__track-artist">{{ track.artist }}</span>
+                </div>
+            </div>
+            }
+
+            <div class="confirmation__tracker">
+                <div class="confirmation__tracker-line">
+                    <div class="confirmation__tracker-progress"></div>
+                </div>
+                <div class="confirmation__tracker-steps">
+                    <div class="confirmation__step confirmation__step--active">
+                        <div class="confirmation__step-dot">
+                            <span class="material-symbols-outlined">hourglass_empty</span>
+                        </div>
+                        <span class="confirmation__step-label">Aguardando</span>
+                    </div>
+                    <div class="confirmation__step">
+                        <div class="confirmation__step-dot confirmation__step-dot--inactive">
+                            <span class="material-symbols-outlined">verified</span>
+                        </div>
+                        <span class="confirmation__step-label confirmation__step-label--inactive">Aprovada</span>
+                    </div>
+                    <div class="confirmation__step">
+                        <div class="confirmation__step-dot confirmation__step-dot--inactive">
+                            <span class="material-symbols-outlined">queue_music</span>
+                        </div>
+                        <span class="confirmation__step-label confirmation__step-label--inactive">Na fila</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="confirmation__waiting">
+                <span class="confirmation__waiting-dot"></span>
+                Aguardando resposta do moderador...
+            </div>
+
+        </section>
         }
 
-        <!-- Status tracker -->
-        <div class="confirmation__tracker">
-          <div class="confirmation__tracker-line">
-            <div class="confirmation__tracker-progress"></div>
-          </div>
+        <!-- Estado: Aprovado -->
+        @if (isApproved) {
+        <section class="confirmation__state animate-fade-slide-up">
 
-          <div class="confirmation__tracker-steps">
-            <div class="confirmation__step confirmation__step--active">
-              <div class="confirmation__step-dot">
-                <span class="material-symbols-outlined">hourglass_empty</span>
-              </div>
-              <span class="confirmation__step-label">Aguardando</span>
+            <div class="confirmation__icon-wrap">
+                <div class="confirmation__icon-glow confirmation__icon-glow--success"></div>
+                <div class="confirmation__icon-circle confirmation__icon-circle--success">
+                    <span class="material-symbols-outlined">done_all</span>
+                </div>
             </div>
-            <div class="confirmation__step">
-              <div class="confirmation__step-dot confirmation__step-dot--inactive">
-                <span class="material-symbols-outlined">verified</span>
-              </div>
-              <span class="confirmation__step-label confirmation__step-label--inactive">Aprovada</span>
+
+            <h2 class="confirmation__title">Música aprovada!</h2>
+            <p class="confirmation__subtitle">Sua música entrou na fila e vai tocar em breve.</p>
+
+            @if (track) {
+            <div class="confirmation__track">
+                @if (track.albumImageUrl) {
+                <img class="confirmation__track-art" [src]="track.albumImageUrl" [alt]="track.album" />
+                }
+                <div class="confirmation__track-info">
+                    <span class="confirmation__track-name">{{ track.name }}</span>
+                    <span class="confirmation__track-artist">{{ track.artist }}</span>
+                </div>
             </div>
-            <div class="confirmation__step">
-              <div class="confirmation__step-dot confirmation__step-dot--inactive">
+            }
+
+            <div class="confirmation__tracker">
+                <div class="confirmation__tracker-line">
+                    <div class="confirmation__tracker-progress confirmation__tracker-progress--approved"></div>
+                </div>
+                <div class="confirmation__tracker-steps">
+                    <div class="confirmation__step">
+                        <div class="confirmation__step-dot confirmation__step-dot--done">
+                            <span class="material-symbols-outlined">check</span>
+                        </div>
+                        <span class="confirmation__step-label confirmation__step-label--done">Enviada</span>
+                    </div>
+                    <div class="confirmation__step confirmation__step--active">
+                        <div class="confirmation__step-dot confirmation__step-dot--success">
+                            <span class="material-symbols-outlined">verified</span>
+                        </div>
+                        <span class="confirmation__step-label confirmation__step-label--success">Aprovada</span>
+                    </div>
+                    <div class="confirmation__step">
+                        <div class="confirmation__step-dot confirmation__step-dot--inactive">
+                            <span class="material-symbols-outlined">queue_music</span>
+                        </div>
+                        <span class="confirmation__step-label confirmation__step-label--inactive">Na fila</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        }
+
+        <!-- Estado: Rejeitado -->
+        @if (isRejected) {
+        <section class="confirmation__state animate-fade-slide-up">
+
+            <div class="confirmation__icon-wrap">
+                <div class="confirmation__icon-glow confirmation__icon-glow--error"></div>
+                <div class="confirmation__icon-circle confirmation__icon-circle--error">
+                    <span class="material-symbols-outlined">close</span>
+                </div>
+            </div>
+
+            <h2 class="confirmation__title">Não foi dessa vez</h2>
+            <p class="confirmation__subtitle">O moderador não aprovou essa música no momento.</p>
+
+            @if (track) {
+            <div class="confirmation__track confirmation__track--rejected">
+                @if (track.albumImageUrl) {
+                <img class="confirmation__track-art" [src]="track.albumImageUrl" [alt]="track.album" />
+                }
+                <div class="confirmation__track-info">
+                    <span class="confirmation__track-name">{{ track.name }}</span>
+                    <span class="confirmation__track-artist">{{ track.artist }}</span>
+                </div>
+            </div>
+            }
+
+        </section>
+        }
+
+        <div class="confirmation__actions animate-fade-slide-up stagger-3">
+            <button class="confirmation__btn-primary primary-gradient ambient-glow btn-press"
+                (click)="suggestAnother()">
+                <span class="material-symbols-outlined">add</span>
+                Sugerir outra música
+            </button>
+            <button class="confirmation__btn-secondary btn-press" (click)="goToQueue()">
                 <span class="material-symbols-outlined">queue_music</span>
-              </div>
-              <span class="confirmation__step-label confirmation__step-label--inactive">Na fila</span>
-            </div>
-          </div>
+                Ver fila ao vivo
+            </button>
         </div>
 
-      </section>
-    }
+    </main>
 
-    <!-- Estado: Aprovado -->
-    @if (isApproved) {
-      <section class="confirmation__state animate-fade-slide-up">
-
-        <div class="confirmation__icon-wrap">
-          <div class="confirmation__icon-glow confirmation__icon-glow--success"></div>
-          <div class="confirmation__icon-circle confirmation__icon-circle--success">
-            <span class="material-symbols-outlined">done_all</span>
-          </div>
-        </div>
-
-        <h2 class="confirmation__title">Música aprovada!</h2>
-        <p class="confirmation__subtitle">Sua música entrou na fila e vai tocar em breve.</p>
-
-      </section>
-    }
-
-    <!-- Estado: Rejeitado -->
-    @if (isRejected) {
-      <section class="confirmation__state animate-fade-slide-up">
-
-        <div class="confirmation__icon-wrap">
-          <div class="confirmation__icon-glow confirmation__icon-glow--error"></div>
-          <div class="confirmation__icon-circle confirmation__icon-circle--error">
-            <span class="material-symbols-outlined">close</span>
-          </div>
-        </div>
-
-        <h2 class="confirmation__title">Não foi dessa vez</h2>
-        <p class="confirmation__subtitle">O moderador não aprovou essa música no momento.</p>
-
-      </section>
-    }
-
-    <!-- Ações -->
-    <div class="confirmation__actions animate-fade-slide-up stagger-3">
-      <button class="confirmation__btn-primary primary-gradient ambient-glow btn-press" (click)="suggestAnother()">
-        <span class="material-symbols-outlined">add</span>
-        Sugerir outra música
-      </button>
-      <button class="confirmation__btn-secondary btn-press" (click)="goToQueue()">
-        <span class="material-symbols-outlined">queue_music</span>
-        Ver fila ao vivo
-      </button>
-    </div>
-
-  </main>
-
-  <!-- Bottom Nav -->
-  <nav class="confirmation__nav glass-panel">
-    <button class="confirmation__nav-item" (click)="suggestAnother()">
-      <span class="material-symbols-outlined">add_circle</span>
-      <span>Sugerir</span>
-    </button>
-    <button class="confirmation__nav-item" (click)="goToQueue()">
-      <span class="material-symbols-outlined">queue_music</span>
-      <span>Fila</span>
-    </button>
-  </nav>
+    <nav class="confirmation__nav glass-panel">
+        <button class="confirmation__nav-item" (click)="suggestAnother()">
+            <span class="material-symbols-outlined">add_circle</span>
+            <span>Sugerir</span>
+        </button>
+        <button class="confirmation__nav-item" (click)="goToQueue()">
+            <span class="material-symbols-outlined">queue_music</span>
+            <span>Fila</span>
+        </button>
+    </nav>
 
 </div>

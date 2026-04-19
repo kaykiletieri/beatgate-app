@@ -103,7 +103,7 @@
         transform: scale(1.5);
 
         &--success {
-            background: color-mix(in srgb, var(--secondary) 10%, transparent);
+            background: color-mix(in srgb, var(--color-primary) 10%, transparent);
         }
 
         &--error {
@@ -129,10 +129,10 @@
         }
 
         &--success {
-            border-color: color-mix(in srgb, var(--secondary) 20%, transparent);
+            border-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
 
             .material-symbols-outlined {
-                color: var(--secondary);
+                color: var(--color-primary);
             }
         }
 
@@ -394,5 +394,56 @@
         &:hover {
             color: var(--on-surface);
         }
+    }
+
+    &__tracker-progress--approved {
+        width: 55%;
+        background: var(--color-primary);
+    }
+
+    &__step-dot--done {
+        background: var(--color-primary);
+        box-shadow: var(--glow-primary);
+
+        .material-symbols-outlined {
+            color: var(--color-on-primary-fixed);
+        }
+    }
+
+    &__step-label--success {
+        color: var(--color-primary);
+    }
+
+    &__step-label--done {
+        color: var(--color-primary);
+        opacity: 0.6;
+    }
+
+    &__step-label--success {
+        color: var(--color-primary);
+    }
+
+    &__track--rejected {
+        opacity: 0.4;
+        filter: grayscale(1);
+    }
+
+    &__waiting {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        font-family: var(--font-body);
+        font-size: 0.8125rem;
+        color: var(--color-primary);
+        margin-top: var(--space-4);
+    }
+
+    &__waiting-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: var(--radius-full);
+        background: var(--color-primary);
+        animation: pulseGlow 1.5s ease-in-out infinite;
+        flex-shrink: 0;
     }
 }
